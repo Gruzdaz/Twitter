@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+Retweeted by:</br>
+{% for user in users %}
+
+<a href="{% url 'timeline' user.retweet%}">{{user.retweet}}</a> </br>
+
+{% endfor %}
+
+{% endblock %}

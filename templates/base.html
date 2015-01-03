@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>{% block title %}Twitter{% endblock %}</title>
+    </head>
+
+    <body>
+	{% if user.is_authenticated %}
+	<a href="{% url 'home_page' %}">Homepage</a></br>
+	Hello {{user}}
+	<a href="{% url 'notification' %}">Notifications</a></br>
+	<li><a href="/logout/">Logout</a></li>
+	{% endif %}
+        {% block body_block %}
+	{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+{% for notification in notif%}
+• <a href="{% url 'timeline' notification.user%}">{{notification.user}}</a>
+{{notification.notification}}
+<a href="{% url 'reply' notification.tweet_id%}">tweet</a>
+{%endfor%}
+{% endblock %}

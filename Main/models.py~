@@ -1,0 +1,52 @@
+from django.db import models
+from django.contrib.auth.models import User
+from datetime import datetime
+
+class Notification(models.Model):
+	notification = models.CharField(max_length=140)
+	def __unicode__(self):
+		return self.notification
+	      
+class Favourite(models.Model):
+	favourite = models.CharField(max_length=140)
+	def __unicode__(self):
+		return self.favourite
+		
+class Retweet(models.Model):
+	favourite = models.CharField(max_length=140)
+	def __unicode__(self):
+		return self.retweet
+		
+class Follower(models.Model):
+	follower = models.CharField(max_length=140)
+	def __unicode__(self):
+		return self.follower
+	
+class Following(models.Model):
+    following = models.CharField(max_length=140) 
+    def __unicode__(self):
+		return self.following
+
+class UserProfile(models.Model):
+    # This line is required. Links UserProfile to a User model instance.
+    user = models.OneToOneField(User)
+    # The additional attributes we wish to include.
+    website = models.URLField()
+    followers = models.ManyToManyField(Follower)
+    following = models.ManyToManyField(Following)
+    notifications = models.ManyToManyField(Notifiaction)
+    
+    def __unicode__(self):	
+		return self.user.username
+        
+class Tweet(models.Model):
+	text = models.CharField(max_length=140)
+	date = models.DateTimeField(auto_now_add=True)
+	user = models.CharField(max_length=140)
+	favourite = models.ManyToManyField(Favourite)
+	retweet = models.ManyToManyField(Retweet)
+	replies = models.ManyToManyField(Tweet)
+        
+	def __unicode__(self):
+		return self.user
+		

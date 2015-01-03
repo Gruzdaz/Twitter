@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+</br>
+{% if tweet.is_ret%}
+[Retweet by {{ tweet.retweeter}}]<a href="{% url 'timeline' tweet.username%}"> {{tweet.username}}</a>: {{tweet.text}} - {{tweet.date}}</br></br>
+{%else%}
+<a href="{% url 'timeline' tweet.username%}">{{tweet.username}}</a>: {{tweet.text}} - {{tweet.date}}</br></br>
+{%endif%}
+{% if tweet.favourite.count != 0 %} </br>
+Favourited by: <a href="{% url 'favourited' tweet.id%}">{{tweet.favourite.count}} </a>
+{% endif %}
+{% if tweet.retweet.count != 0 %} </br>
+Retweeted by: <a href="{% url 'retweeted' tweet.id%}">{{tweet.retweet.count}} </a>
+{% endif %}
+
+
+{% for reply in replies %}
+
+<a href="{% url 'timeline' reply.username%}">{{reply.username}}</a>: {{reply.text}} - {{reply.date}}
+{% if reply.favourite.count != 0 %} </br>
+Favourited by: <a href="{% url 'favourited' reply.id%}">{{reply.favourite.count}} </a>
+{% endif %}
+{% if tweet.retweet.count != 0 %} </br>
+Retweeted by: <a href="{% url 'retweeted' reply.id%}">{{reply.retweet.count}} </a>
+{% endif %}
+
+{% endfor %}
+
+<form id="reply_form" method="post" action="">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" name="tweet" value="Reply" /> 
+</form>
+{% endblock %}

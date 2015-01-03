@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+Following:</br>
+{% for user in users %}
+
+<a href="{% url 'timeline' user.following%}">{{user.following}}</a> </br>
+
+{% endfor %}
+
+{% endblock %}

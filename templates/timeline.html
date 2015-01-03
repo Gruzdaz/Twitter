@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+		<h1>{{username}} </h1>
+		<h1>Followers <a href="{% url 'followers' useris.id%}">{{foll1}}</a></h1>
+		<h1>Following <a href="{% url 'following' useris.id%}">{{foll2}}</a></h1>
+		<h2>Tweets {{ count }}</h2>
+		{% if user.is_authenticated %}
+		<form action="#" method="get">
+		<input type="submit" class="" value="Follow" name="follow">
+		</form>
+		{% endif %}
+		{% for tweet in tweets %}
+		{% if tweet.is_ret%}
+		[Retweet by {{ tweet.retweeter}}]<a href="{% url 'timeline' tweet.username%}"> {{tweet.username}}</a>: {{tweet.text}} - {{tweet.date}}
+		</br></br>
+		{%else%}
+		<a href="{% url 'timeline' tweet.username%}">{{tweet.username}}</a>: {{tweet.text}} - {{tweet.date}}
+		</br></br>
+		{%endif%}
+		{% if tweet.favourite.count != 0 %} 
+		Favourited by: <a href="{% url 'favourited' tweet.id%}">{{tweet.favourite.count}} </a>
+		{% endif %}
+		{% if tweet.retweet.count != 0 %} </br>
+		Retweeted by: <a href="{% url 'retweeted' tweet.id%}">{{tweet.retweet.count}} </a>
+		{% endif %}
+		{% endfor %}
+		
+{% endblock %}

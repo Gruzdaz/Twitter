@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+Favourited by:</br>
+{% for user in users %}
+
+<a href="{% url 'timeline' user.favourite%}">{{user.favourite}}</a> </br>
+
+{% endfor %}
+
+{% endblock %}
